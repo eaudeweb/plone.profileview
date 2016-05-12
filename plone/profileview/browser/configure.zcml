@@ -1,14 +1,14 @@
 <configure
   xmlns="http://namespaces.zope.org/zope"
   xmlns:browser="http://namespaces.zope.org/browser"
-  i18n_domain="david">
+  i18n_domain="plone">
 
   <browser:page
     name="profileview"
     for="*"
     class=".profileview.ProfileView"
     attribute="main"
-    layer="david.profileview.interfaces.IProfileViewInstalled"
+    layer="plone.profileview.interfaces.IProfileViewInstalled"
     permission="cmf.ManagePortal"
     />
 
@@ -17,7 +17,7 @@
     for="*"
     class=".profileview.ProfileView"
     attribute="ajax"
-    layer="david.profileview.interfaces.IProfileViewInstalled"
+    layer="plone.profileview.interfaces.IProfileViewInstalled"
     permission="cmf.ManagePortal"
     />
 
@@ -26,12 +26,12 @@
     for="*"
     class=".profileview.ProfileView"
     template="./templates/ajax.pt"
-    layer="david.profileview.interfaces.IProfileViewInstalled"
+    layer="plone.profileview.interfaces.IProfileViewInstalled"
     permission="cmf.ManagePortal"
     />
 
   <browser:resourceDirectory
-    name="david.profileview.resources"
+    name="plone.profileview.resources"
     directory="./resources/"
     />
 

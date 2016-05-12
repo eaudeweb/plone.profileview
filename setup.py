@@ -3,7 +3,7 @@ import os
 
 version = open('version.txt').read().strip()
 
-setup(name='david.profileview',
+setup(name='plone.profileview',
       version=version,
       description="BrowserView profiler",
       long_description=open("README.md").read() + "\n" +
@@ -11,15 +11,24 @@ setup(name='david.profileview',
       # Get more strings from
       # http://pypi.python.org/pypi?:action=list_classifiers
       classifiers=[
-        "Programming Language :: Python",
+          "Framework :: Zope2",
+          "Framework :: Zope3",
+          "Framework :: Plone",
+          "Framework :: Plone :: 4.3",
+          "Framework :: Plone :: 5.0",
+          "Programming Language :: Zope",
+          "Programming Language :: Python",
+          "Topic :: Software Development :: Libraries :: Python Modules",
+          "License :: OSI Approved :: GNU General Public License (GPL)",
+          "License :: OSI Approved :: Mozilla Public License 1.0 (MPL)",
         ],
-      keywords='browserview profiler',
+      keywords='Plone BrowserView Profiler',
       author='David Batranu',
       author_email='dbatranu@gmail.com',
-      url='http://github.com/david-batranu/david.profileview',
+      url='http://github.com/eaudeweb/plone.profileview',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
-      namespace_packages=['david'],
+      namespace_packages=['plone'],
       include_package_data=True,
       zip_safe=False,
       install_requires=[
@@ -27,6 +36,8 @@ setup(name='david.profileview',
           'plone.api'
       ],
       entry_points="""
-      # -*- Entry points: -*-
+      # -*- entry_points -*-
+      [z3c.autoinclude.plugin]
+      target = plone
       """,
       )

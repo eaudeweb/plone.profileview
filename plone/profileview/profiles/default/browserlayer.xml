@@ -1,0 +1,6 @@
+<layers>
+  <layer
+    name="plone.profileview"
+    interface="plone.profileview.interfaces.IProfileViewInstalled"
+  />
+</layers>

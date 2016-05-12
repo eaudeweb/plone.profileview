@@ -3,7 +3,7 @@
     xmlns:five="http://namespaces.zope.org/five"
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:cmf="http://namespaces.zope.org/cmf"
-    i18n_domain="david">
+    i18n_domain="plone">
 
     <includeDependencies package="." />
 

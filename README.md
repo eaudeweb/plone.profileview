@@ -35,9 +35,6 @@ Depending on browser, you may need to refresh the page after changing the hash p
     ...
     eggs =
         ...
-        david.profileview
-    zcml =
-        ...
-        david.profileview
-        
+        plone.profileview
+
 ```

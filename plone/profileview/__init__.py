@@ -1,4 +1,4 @@
-""" david.profileview
+""" plone.profileview
 """
 
 

@@ -1,6 +1,0 @@
-<layers>
-  <layer
-    name="david.profileview"
-    interface="david.profileview.interfaces.IProfileViewInstalled"
-  />
-</layers>
