@@ -6,7 +6,7 @@ version = open('version.txt').read().strip()
 setup(name='plone.profileview',
       version=version,
       description="BrowserView profiler",
-      long_description=open("README.md").read() + "\n" +
+      long_description=open("README.rst").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from
       # http://pypi.python.org/pypi?:action=list_classifiers

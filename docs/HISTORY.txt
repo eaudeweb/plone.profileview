@@ -1,8 +1,8 @@
 Changelog
 =========
 
-0.2.dev0 - (unreleased)
------------------------
+0.2 - (2016-05-20)
+------------------
 - Cleanup: Remove profile in order not to leave traces within database
   [avoinea]
 
