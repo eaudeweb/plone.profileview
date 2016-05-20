@@ -8,7 +8,6 @@
     for="*"
     class=".profileview.ProfileView"
     attribute="main"
-    layer="plone.profileview.interfaces.IProfileViewInstalled"
     permission="cmf.ManagePortal"
     />
 
@@ -17,7 +16,6 @@
     for="*"
     class=".profileview.ProfileView"
     attribute="ajax"
-    layer="plone.profileview.interfaces.IProfileViewInstalled"
     permission="cmf.ManagePortal"
     />
 
@@ -26,7 +24,6 @@
     for="*"
     class=".profileview.ProfileView"
     template="./templates/ajax.pt"
-    layer="plone.profileview.interfaces.IProfileViewInstalled"
     permission="cmf.ManagePortal"
     />
 
