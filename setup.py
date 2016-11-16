@@ -1,5 +1,6 @@
 from setuptools import setup, find_packages
 import os
+#irina
 
 version = open('version.txt').read().strip()
 
