@@ -1,6 +1,6 @@
 Plone Profile View
 ==================
-
+------modification------
 This package is designed to ease performace profiling of Plone websites.
 
 Normally, if you want to profile Plone you need to run Zope with profiling active. This results in extreme performance drops and no way to properly target a specific section or functionality (AFAIK).
