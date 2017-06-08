@@ -18,47 +18,37 @@ def jsonify(request, data, cache=False):
     return json.dumps(data, indent=2, sort_keys=True)
 
 
+def set_headers(request, name=''):
+    content_disp = 'attachment; filename={0}.profile'.format(name)
+    request.response.setHeader('Content-Type', 'application/octet-steam')
+    request.response.setHeader('Content-Disposition', content_disp)
+
+
+def prepare_download(profile):
+    profile.create_stats()
+    dump = marshal.dumps(profile.stats)
+
+    stream = StringIO()
+    stream.write(dump)
+
+    stream.seek(0)
+
+    return stream
+
+
+def download(request, profile, name):
+    stream = prepare_download(profile)
+    set_headers(request, name)
+    return stream.read()
+
+
+def profile_context(context, **kwargs):
+    profiler = cProfile.Profile()
+    profiler.runcall(context, **kwargs)
+    return profiler
+
+
 class ProfileView(BrowserView):
-
-    def prepare_download(self, profile):
-        profile.create_stats()
-        dump = marshal.dumps(profile.stats)
-
-        stream = StringIO()
-        stream.write(dump)
-
-        stream.seek(0)
-
-        return stream
-
-    def set_headers(self, name=''):
-        self.request.response.setHeader(
-            'Content-Type', 'application/octet-steam')
-        filename = name or self.context.__name__
-        content_disp = 'attachment; filename={0}.profile'.format(filename)
-        self.request.response.setHeader(
-            'Content-Disposition', content_disp)
-
-    def download(self, profile, name=''):
-        stream = self.prepare_download(profile)
-        self.set_headers(name)
-        return stream.read()
-
-    def default(self, **kwargs):
-        profiler = cProfile.Profile()
-        profiler.runcall(self.context, **kwargs)
-        return profiler
-
-    def targeted(self, target, **kwargs):
-        profiler = cProfile.Profile()
-
-        try:
-            profiler.runcall(getattr(self.context, target), **kwargs)
-        except AttributeError:
-            view = self.context.restrictedTraverse(target)
-            profiler.runcall(view, **kwargs)
-
-        return profiler
 
     def run_profile(self, target=None, **kwargs):
         if 'target' in self.request:
@@ -67,14 +57,20 @@ class ProfileView(BrowserView):
         if 'kwargs' in self.request:
             kwargs = json.loads(self.request.get('kwargs', '{}'))
 
-        if target is not None:
-            return (self.targeted(target, **kwargs), target)
-        else:
-            return (self.default(**kwargs), self.context.__name__)
+        target_context = (
+            getattr(self.context, target, None)
+            if target is not None
+            else self.context
+        )
+
+        return (
+            profile_context(target_context, **kwargs),
+            target_context.__name__
+        )
 
     def main(self):
         profile, target = self.run_profile()
-        return self.download(profile, name=target)
+        return download(self.request, profile, name=target)
 
     def make_temp(self):
         profile, name = self.run_profile()
