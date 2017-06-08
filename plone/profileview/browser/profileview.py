@@ -4,10 +4,14 @@ import cProfile
 import marshal
 import json
 import tempfile
+import logging
 from StringIO import StringIO
 from Products.Five.browser import BrowserView
+from zope.globalrequest import getRequest
 
 from plone import api
+
+LOGGER = logging.getLogger('plone.profileview')
 
 
 def jsonify(request, data, cache=False):
@@ -42,10 +46,21 @@ def download(request, profile, name):
     return stream.read()
 
 
-def profile_context(context, **kwargs):
+def profile_context(context, *args, **kwargs):
     profiler = cProfile.Profile()
-    profiler.runcall(context, **kwargs)
+    profiler.runcall(context, *args, **kwargs)
     return profiler
+
+
+def decorator_download(func):
+    def wrapped(*args, **kwargs):
+        name = func.__name__
+        request = getRequest()
+        LOGGER.info('Profiling %s.', func.__name__)
+        profile = profile_context(func, *args, **kwargs)
+        LOGGER.info('Done. Starting download.')
+        return download(request, profile, name)
+    return wrapped
 
 
 class ProfileView(BrowserView):
